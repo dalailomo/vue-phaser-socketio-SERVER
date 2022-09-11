@@ -1,5 +1,5 @@
 {
-  "name": "x-comedor",
+  "name": "vue-phaser-socketio-server",
   "version": "1.0.0",
   "main": "index.js",
   "author": "DalaiLomo <reisereise.85@gmail.com>",
