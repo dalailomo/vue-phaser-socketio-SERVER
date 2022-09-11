@@ -6,6 +6,7 @@ const io = require('socket.io')();
 
 io.on('connection', (socket: Socket) => {
     socketHandlers.handleUserConnections(socket, inMemoryUserManager);
+    socketHandlers.handleIoEmitLog(socket, io);
 });
 
 io.listen(3000, {

@@ -1,10 +1,6 @@
-import { Socket } from "socket.io";
-import { ModuleDefinition as InMemoryUserModuleDefinition } from "../in-memory-user-manager/types";
+import { Server, Socket } from "socket.io";
 import { UserManager } from "./handle-user-connections/types";
-
 export interface ModuleDefinition {
-    handleUserConnections: (
-        socket: Socket,
-        userModule: UserManager
-    ) => void;
+    handleUserConnections: (socket: Socket, userModule: UserManager) => void;
+    handleIoEmitLog: (socket: Socket, io: Server) => void;
 }

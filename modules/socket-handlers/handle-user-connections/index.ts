@@ -2,8 +2,8 @@ import { Socket } from "socket.io";
 import { UserManager } from "./types";
 
 const EVENT = {
-    serverReturnsConnectedUsers: 'handle-user-connections:server-returns:get-connected-users',
-    clientRequestConnectedUsers: 'handle-user-connections:client-request:get-connected-users',
+    SB_ConnectedUsers: 'handle-user-connections:socket-broadcast:get-connected-users',
+    CE_ConnectedUsers: 'handle-user-connections:client-emits:get-connected-users',
 }
 
 export const handleUserConnections = (
@@ -14,15 +14,15 @@ export const handleUserConnections = (
     if (!name) return;
 
     addUser({ id: socket.id, name });
-    socket.broadcast.emit(EVENT.serverReturnsConnectedUsers, getConnectedUsers());
+    socket.broadcast.emit(EVENT.SB_ConnectedUsers, getConnectedUsers());
 
     socket.on("disconnect", () => {
         removeUser(name);
-        socket.broadcast.emit(EVENT.serverReturnsConnectedUsers, getConnectedUsers());
+        socket.broadcast.emit(EVENT.SB_ConnectedUsers, getConnectedUsers());
     });
 
-    socket.on(EVENT.clientRequestConnectedUsers, () => {
-        socket.emit(EVENT.serverReturnsConnectedUsers, getConnectedUsers());
+    socket.on(EVENT.CE_ConnectedUsers, () => {
+        socket.emit(EVENT.SB_ConnectedUsers, getConnectedUsers());
     });
 };
 
